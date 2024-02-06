@@ -5,3 +5,6 @@
 - favourite a recipe
 - view a recipe
 - suggest improvements to recipe
+
+- use python flask
+- use SQLite 
