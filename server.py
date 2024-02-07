@@ -5,7 +5,7 @@ app = Flask(__name__)
 @app.route("/", methods=["GET"])
 def home(name = None):
     return render_template(
-        "hello.html",
+        "home.html",
         name=name,
         date=datetime.now()
     )
