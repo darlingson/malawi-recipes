@@ -1,7 +1,7 @@
 import re
 import sqlite3
 from datetime import datetime
-from flask import Flask, render_template, request
+from flask import Flask, redirect, render_template, request, url_for
 app = Flask(__name__)
 
 def get_db_connection():
@@ -28,7 +28,12 @@ def add_recipe():
         content = request.form['content']
         author = request.form['author']
         ingredients = request.form['ingredients']
-        return render_template('add_recipe.html', title=title, content=content, author=author, ingredients=ingredients)
+        conn = get_db_connection()
+        conn.execute('INSERT INTO recipes (title, content, author, ingredients) VALUES (?, ?, ?, ?)',(title, content, author, ingredients))
+        conn.commit()
+        conn.close()
+        return redirect(url_for('home'))
+    # return render_template('add_recipe.html', title=title, content=content, author=author, ingredients=ingredients)
     else:
         return render_template('add_recipe.html')
 
