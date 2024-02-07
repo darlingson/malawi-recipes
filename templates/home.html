@@ -71,6 +71,12 @@
           </div>
         </div>
       </div>
-      
+      {% for recipe in recipes %}
+          <div class='post'>
+              <p>{{ recipe['created'] }}</p>
+              <h2 class="text-white sm:text-900">{{ recipe['title'] }}</h2>
+              <p class="text-white sm:text-600">{{ recipe['content'] }}</p>
+          </div>
+      {% endfor %}
 </body>
 </html>
