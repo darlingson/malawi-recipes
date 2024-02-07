@@ -1,7 +1,7 @@
 import re
 import sqlite3
 from datetime import datetime
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 app = Flask(__name__)
 
 def get_db_connection():
@@ -20,6 +20,17 @@ def home(name = None):
         date=datetime.now(),
         recipes=recipes
     )
+
+@app.route("/add-recipe", methods=["POST", "GET"])
+def add_recipe():
+    if request.method == "POST":
+        title = request.form['title']
+        content = request.form['content']
+        author = request.form['author']
+        ingredients = request.form['ingredients']
+        return render_template('add_recipe.html', title=title, content=content, author=author, ingredients=ingredients)
+    else:
+        return render_template('add_recipe.html')
 
 if __name__ == "__main__":
     app.run()
