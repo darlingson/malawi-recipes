@@ -20,7 +20,22 @@ def home(name = None):
         date=datetime.now(),
         recipes=recipes
     )
+@app.route("/recipes", methods=["GET"])
+def recipes():
+    conn = get_db_connection()
+    recipes = conn.execute('SELECT * FROM recipes').fetchall()
+    conn.close()
+    return render_template("recipes.html", recipes=recipes)
 
+@app.route("/recipe/<int:recipe_id>", methods=["GET"])
+def recipe(recipe_id):
+    conn = get_db_connection()
+    recipe = conn.execute('SELECT * FROM recipes WHERE id = ?', (recipe_id,)).fetchone()
+    conn.close()
+    return render_template("recipe.html", recipe=recipe)
+app.route("/recipe/<int:recipe_id>/edit", methods=["GET"])
+def edit_recipe(recipe_id):
+    return render_template("edit_recipe.html", recipe_id=recipe_id)
 @app.route("/add-recipe", methods=["POST", "GET"])
 def add_recipe():
     if request.method == "POST":
