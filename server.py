@@ -31,6 +31,7 @@ def recipes():
 def recipe(recipe_id):
     conn = get_db_connection()
     recipe = conn.execute('SELECT * FROM recipes WHERE id = ?', (recipe_id,)).fetchone()
+    print(recipe)
     conn.close()
     return render_template("recipe.html", recipe=recipe)
 app.route("/recipe/<int:recipe_id>/edit", methods=["GET"])
