@@ -51,6 +51,8 @@ def add_recipe():
     # return render_template('add_recipe.html', title=title, content=content, author=author, ingredients=ingredients)
     else:
         return render_template('add_recipe.html')
-
+@app.route("/about",methods=["GET"])
+def about():
+    return render_template('about.html')
 if __name__ == "__main__":
     app.run()
