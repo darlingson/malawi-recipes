@@ -2,22 +2,22 @@
 
 {% block content %}
     <div class="flex justify-center items-center h-screen">
-        <form method="post" style="width: 50%; text-align: center; background-color: rgba(0, 0, 0, 0.8); padding: 20px; border-radius: 8px;">
-            <h1>{% block title %} Add a New Post {% endblock %}</h1>
+        <form method="post" style="width: 50%; text-align: center; background-color: rgba(0, 0, 0, 0.8); padding: 20px; border-radius: 8px; color: #fff;">
+            <h1>{% block title %} Add a New Recipe {% endblock %}</h1>
 
             <label for="author">Author</label><br>
-            <input type="text" name="author" placeholder="Author" value="{{ request.form['author'] }}"><br>
+            <input type="text" name="author" placeholder="Author" value="{{ request.form['author'] }}" style="width: 100%; padding: 8px; box-sizing: border-box; border-radius: 4px; color: #333;"><br>
 
-            <label for="title">Title</label><br>
-            <input type="text" name="title" placeholder="Post title" value="{{ request.form['title'] }}"><br>
-
-            <label for="content">Post Content</label><br>
-            <textarea name="content" placeholder="Post content" rows="15" cols="60">{{ request.form['content'] }}</textarea><br>
+            <label for="title">Recipe Title</label><br>
+            <input type="text" name="title" placeholder="Post title" value="{{ request.form['title'] }}" style="width: 100%; padding: 8px; box-sizing: border-box; border-radius: 4px; color: #333;"><br>
 
             <label for="ingredients">Ingredients</label><br>
-            <textarea name="ingredients" placeholder="Ingredients" rows="15" cols="60">{{ request.form['ingredients'] }}</textarea><br>
+            <textarea name="ingredients" placeholder="Ingredients" rows="15" cols="60" style="width: 100%; padding: 8px; box-sizing: border-box; border-radius: 4px; color: #333;">{{ request.form['ingredients'] }}</textarea><br>
 
-            <button type="submit" style="background-color: #333; color: #fff; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer;">Submit</button>
+            <label for="content">Steps</label><br>
+            <textarea name="content" placeholder="Post content" rows="15" cols="60" style="width: 100%; padding: 8px; box-sizing: border-box; border-radius: 4px; color: #333;">{{ request.form['content'] }}</textarea><br>
+
+            <button type="submit" style="background-color: #333; color: #fff; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer;">Add Recipe</button>
         </form>
     </div>
 {% endblock %}
