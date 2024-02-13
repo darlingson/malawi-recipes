@@ -1,0 +1,10 @@
+- user register
+- user login
+- search for recipe using keywords
+- add s recipe
+- favourite a recipe
+- view a recipe
+- suggest improvements to recipe
+
+- use python flask
+- use SQLite 
