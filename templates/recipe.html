@@ -8,6 +8,10 @@
         <p>{{ recipe.ingredients }}</p>
 
         <h2 class="h-2 mt-4 mb-4">Steps</h2>
-        <p>{{ recipe.content }}</p>
+        {% set list1 = recipe.content.split(';;;;') %}
+        {% for item in list1 %}
+            <p>{{ loop.index }}. {{ item }}</p>
+        {% endfor %}
+        <!-- <p>{{ recipe.content }}</p> -->
     </div>
 {% endblock %}
