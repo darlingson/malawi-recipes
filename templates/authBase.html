@@ -10,12 +10,14 @@
 		color: green;
 		}
 	</style>
+    <link href="{{url_for('static',filename='css/main.css')}}" rel="stylesheet">
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
 </head>
-<body>
+<body class="bg-black border-gray-800">
 	<nav class="bg-black border-gray-800">
 	<ul>
 		<li><a href="/login">Login</a></li>
-		<li><a href="/register">Create account</a></li>
+		<li><a href="/register">Create your account</a></li>
 	</ul>
 	</nav>
     {% block content %} {% endblock %}
