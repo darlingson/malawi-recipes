@@ -88,9 +88,11 @@ def recipe(recipe_id):
     conn.close()
     return render_template("recipe.html", recipe=recipe)
 app.route("/recipe/<int:recipe_id>/edit", methods=["GET"])
+@login_required
 def edit_recipe(recipe_id):
     return render_template("edit_recipe.html", recipe_id=recipe_id)
 @app.route("/add-recipe", methods=["POST", "GET"])
+@login_required
 def add_recipe():
     if request.method == "POST":
         title = request.form['title']
