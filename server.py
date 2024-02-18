@@ -3,7 +3,7 @@ import sqlite3
 from datetime import datetime
 from flask import Flask, redirect, render_template, request, url_for
 from flask_sqlalchemy import SQLAlchemy
-from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user
+from flask_login import LoginManager, UserMixin, current_user, login_user, login_required, logout_user
 
 app = Flask(__name__)
 
@@ -70,16 +70,16 @@ def home(name = None):
     conn.close()
     return render_template(
         "home.html",
-        name=name,
         date=datetime.now(),
-        recipes=recipes
+        recipes=recipes,
+        name=current_user.username
     )
 @app.route("/recipes", methods=["GET"])
 def recipes():
     conn = get_db_connection()
     recipes = conn.execute('SELECT * FROM recipes').fetchall()
     conn.close()
-    return render_template("recipes.html", recipes=recipes)
+    return render_template("recipes.html", recipes=recipes,name=current_user.username)
 
 @app.route("/recipe/<int:recipe_id>", methods=["GET"])
 def recipe(recipe_id):
@@ -87,11 +87,11 @@ def recipe(recipe_id):
     recipe = conn.execute('SELECT * FROM recipes WHERE id = ?', (recipe_id,)).fetchone()
     print(recipe)
     conn.close()
-    return render_template("recipe.html", recipe=recipe)
+    return render_template("recipe.html", recipe=recipe, name=current_user.username)
 app.route("/recipe/<int:recipe_id>/edit", methods=["GET"])
 @login_required
 def edit_recipe(recipe_id):
-    return render_template("edit_recipe.html", recipe_id=recipe_id)
+    return render_template("edit_recipe.html", recipe_id=recipe_id, name=current_user.username)
 @app.route("/add-recipe", methods=["POST", "GET"])
 @login_required
 def add_recipe():
@@ -110,6 +110,6 @@ def add_recipe():
         return render_template('add_recipe.html')
 @app.route("/about",methods=["GET"])
 def about():
-    return render_template('about.html')
+    return render_template('about.html', name=current_user.username)
 if __name__ == "__main__":
     app.run()
