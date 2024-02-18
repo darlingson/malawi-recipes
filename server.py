@@ -68,12 +68,20 @@ def home(name = None):
     conn = get_db_connection()
     recipes = conn.execute('SELECT * FROM recipes').fetchall()
     conn.close()
-    return render_template(
-        "home.html",
-        date=datetime.now(),
-        recipes=recipes,
-        name=current_user.username
-    )
+    if(current_user.is_authenticated):
+        return render_template(
+            "home.html",
+            date=datetime.now(),
+            recipes=recipes,
+            name=current_user.username
+        )
+    else:
+        return render_template(
+            "home.html",
+            date=datetime.now(),
+            recipes=recipes,
+            name="guest"
+        )
 @app.route("/recipes", methods=["GET"])
 def recipes():
     conn = get_db_connection()
