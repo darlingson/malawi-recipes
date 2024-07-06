@@ -20,6 +20,7 @@ class Users(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(250), unique=True, nullable=False)
     password = db.Column(db.String(250), nullable=False)
+    email = db.Column(db.String(250), unique=True, nullable=False)
  
  
 db.init_app(app) 
@@ -33,8 +34,11 @@ def loader_user(user_id):
 @app.route('/register', methods=["GET", "POST"])
 def register():
     if request.method == "POST":
-        user = Users(username=request.form.get("username"),
-                     password=request.form.get("password"))
+        user = Users(
+            username=request.form.get("username"),
+            password=request.form.get("password"),
+            email=request.form.get("email"),
+            )
         db.session.add(user)
         db.session.commit()
         return redirect(url_for("login"))
@@ -113,9 +117,8 @@ def add_recipe():
         conn.commit()
         conn.close()
         return redirect(url_for('home'))
-    # return render_template('add_recipe.html', title=title, content=content, author=author, ingredients=ingredients)
     else:
-        return render_template('add_recipe.html')
+        return render_template('add_recipe.html', name=current_user.username)
 @app.route("/about",methods=["GET"])
 def about():
     return render_template('about.html', name=current_user.username)
