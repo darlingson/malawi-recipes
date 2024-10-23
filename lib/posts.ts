@@ -2,10 +2,14 @@ import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
 
-
+interface PostData {
+  id: string;
+  title?: string; // Add other fields as needed
+  date: string; // Assuming date is a string (ISO format or similar)
+}
 const postsDirectory = path.join(process.cwd(), "posts");
 
-export async function getSortedPostsData() {
+export async function getSortedPostsData(): Promise<PostData[]> {
   // Get file names under /posts
   const fileNames = fs.readdirSync(postsDirectory);
   const allPostsData = fileNames.map((fileName) => {
@@ -20,10 +24,15 @@ export async function getSortedPostsData() {
     const matterResult = matter(fileContents);
 
     // Combine the data with the id
-    return {
+    const postData = {
       id,
-      ...matterResult.data,
+      ...(matterResult.data as Omit<PostData, "id">), // Type assertion
     };
+    // return {
+    //   id,
+    //   ...matterResult.data,
+    // };
+    return postData;
   });
   // Sort posts by date
   return allPostsData.sort(({ date: a }, { date: b }) => {
