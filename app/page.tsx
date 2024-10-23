@@ -1,15 +1,11 @@
-type PostData = {
-  id: string;
-  title: string;
-  date: string;
-};
+
 
 import { getSortedPostsData } from '../lib/recipes';
 
 // Async server component for App Router
 export default async function Home() {
   // Fetch the post data
-  const allPostsData: PostData[] = await getSortedPostsData();
+  const allPostsData = await getSortedPostsData();
 
   return (
     <ul>
